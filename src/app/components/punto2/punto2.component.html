@@ -1,0 +1,91 @@
+<div class="row">
+    <section class="col-md-8 d-none d-md-block pb-5">
+        <div class="table-wrapper">
+            <table class="table table-striped table-hover text-center caption-top">
+                <caption>Lista de Tickets</caption>
+                <thead>
+                    <tr class="table-primary">
+                        <th scope="col" class="col-1">#</th>
+                        <th scope="col" class="col-1">Moneda de Origen</th>
+                        <th scope="col" class="col-1">Monto de Origen</th>
+                        <th scope="col" class="col-1">Moneda de Destino</th>
+                        <th scope="col" class="col-1">Monto de Destino</th>
+                        <th scope="col" class="col-2">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of transacciones; track $index) {
+                        <tr>
+                            <th scope="row">{{$index + 1}}</th>
+                            <td>{{item.monedaOrigen}}</td>
+                            <td>{{item.cantidadOrigen}}</td>
+                            <td>{{item.monedaDestino}}</td>
+                            <td>{{item.cantidadDestino}}</td>
+                            <td>{{item.email}}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <aside class="formulario col-md-4 col-12 mb-md-4 w-25" style="float: left;">
+    
+        <h3 class="title-form">Conversor de Divisas</h3>
+        <form [formGroup]="newTransaccionForm" (submit)="convertir()">
+
+            <div class="form-group mb-3">
+                <label for="tipoOrigen">Moneda de Origen</label>
+                <select class="form-control" id="tipoOrigen" required formControlName="tipoOrigen">
+                    <option value="ARS" selected>ARS</option>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                </select>
+            </div>
+            @if (tipoOrigen?.invalid && (tipoOrigen?.dirty || tipoOrigen?.touched)) {
+                <div class="alert alert-danger" role="alert">
+                    Debe seleccionar una moneda de origen
+                </div>
+            }
+
+            <div class="form-group mb-3">
+                <label for="tipoDestino">Tipo de Destino</label>
+                <select class="form-control" id="tipoDestino" required formControlName="tipoDestino">
+                    <option value="USD" selected>USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="ARS">ARS</option>
+                </select>
+            </div>
+            @if (tipoDestino?.invalid && (tipoDestino?.dirty || tipoDestino?.touched)) {
+                <div class="alert alert-danger" role="alert">
+                    Debe seleccionar una moneda de destino
+                </div>
+            }
+
+            <div class="form-group mb-3">
+                <label for="montoOrigen">Monto</label>
+                <input type="number" class="form-control" id="montoOrigen" min="1" required  formControlName="montoOrigen">
+            </div>
+            @if (montoOrigen?.invalid && (montoOrigen?.dirty || montoOrigen?.touched)) {
+                <div class="alert alert-danger" role="alert">
+                        Debe ingresar el monto
+                </div>
+            }
+
+            <div class="mb-3 col-sm-12">
+                <label id="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" placeholder="Ingrese email" required formControlName="email">
+            </div>
+            @if (email?.invalid && (email?.dirty || email?.touched)) {
+                <div class="alert alert-danger" role="alert">
+                        Debe ingresar un email
+                </div>
+            }
+
+            <div class="d-flex justify-content-between">
+                <button type="" class="btn btn-primary" [disabled]="newTransaccionForm.invalid">Convertir</button>
+                <button type="reset" class="btn btn-warning">Vaciar campos</button>
+            </div>
+            
+        </form>
+    </aside>
+</div>

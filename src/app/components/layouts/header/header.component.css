@@ -1,0 +1,20 @@
+nav {
+    width: 100%;
+}
+a {
+    font-size: x-large;
+    color: white;
+}
+
+li:hover {
+    background-color: gray;
+}
+
+.active {
+    background-color: #0dcaf0;
+}
+
+i {
+    font-size: xx-large;
+    margin: 10px;
+}

@@ -1,0 +1,75 @@
+<section class="container p-4 mt-5">
+    <h2 class="text-center">Nuevo Producto</h2>
+    <form [formGroup]="newProductoForm" (submit)="saveProducto()">
+
+        <div class="form-group mb-3">
+          <label for="nombre">Nombre</label>
+          <input type="text" class="form-control" id="nombre" required formControlName="nombre">
+        </div>
+        @if (nombre?.invalid && (nombre?.dirty || nombre?.touched)) {
+            <div class="alert alert-danger" role="alert">
+                    Debe ingresar un nombre
+            </div>
+        }
+
+        <div class="form-group mb-3">
+            <label for="descripcion">Descripcion</label>
+            <input id="descripcion" type="text" class="form-control" required  formControlName="descripcion">
+        </div>
+        @if (descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)) {
+            <div class="alert alert-danger" role="alert">
+                    Debe ingresar una descripción
+            </div>
+        }
+
+        <div class="form-group mb-3">
+            <label for="imagen">URL de imagen</label>
+            <input type="text" class="form-control" id="imagen" required  formControlName="imagen">
+        </div>
+        @if (imagen?.invalid && (imagen?.dirty || imagen?.touched)) {
+            <div class="alert alert-danger" role="alert">
+                    Debe ingresar una url de la imagen
+            </div>
+        }
+
+        <div class="form-group mb-3">
+            <label for="precio">Precio</label>
+            <input type="number" class="form-control" id="precio" min="1" required  formControlName="precio">
+        </div>
+        @if (precio?.invalid && (precio?.dirty || precio?.touched)) {
+            <div class="alert alert-danger" role="alert">
+                    Debe ingresar el precio
+            </div>
+        }
+
+        <div class="form-group mb-3">
+            <label for="stock">Stock</label>
+            <input type="number" class="form-control" id="stock" min="1" required  formControlName="stock">
+        </div>
+        @if (stock?.invalid && (stock?.dirty || stock?.touched)) {
+            <div class="alert alert-danger" role="alert">
+                    Debe ingresar el stock
+            </div>
+        }
+
+        <div class="form-group mb-3">
+            <label for="destacado">Destacado</label>
+            <select class="form-control" id="destacado" required formControlName="destacado">
+              <option value="true" selected>Si</option>
+              <option value="false">No</option>
+            </select>
+          </div>
+          @if (destacado?.invalid && (destacado?.dirty || destacado?.touched)) {
+              <div class="alert alert-danger" role="alert">
+                      Debe seleccionar un valor
+              </div>
+          }
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary" [disabled]="newProductoForm.invalid">Registrar</button>
+            <button type="reset" class="btn btn-warning">Vaciar campos</button>
+            <button type="button" class="btn btn-secondary" (click)="volver()">Cancelar</button>
+        </div>
+        
+    </form>
+</section>

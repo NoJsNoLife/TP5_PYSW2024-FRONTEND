@@ -1,0 +1,20 @@
+<div class="col-md-12 carta">
+    <h3 class="text-center">Productos Destacados</h3>
+    <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-success mb-2" (click)="registrar()">Registrar Producto</button>
+    </div>
+    <section class=" container col-lg-8 col-12 mb-4">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 m-0 p-0">
+            @for (article of productos; track $index) {
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{article.imagen}}" alt="imagen">
+                    <div class="card-body">
+                        <h5 class="card-title">{{article.nombre}}</h5>
+                        <h5 class="card-subtitle">{{article.descripcion}}</h5>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+    
+</div>
