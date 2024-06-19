@@ -1,0 +1,66 @@
+<section class="container p-4 mt-5">
+    <h2 class="text-center">Nuevo Ticket</h2>
+    <form [formGroup]="newTicketForm" (submit)="createTicket()">
+
+        <div class="form-group mb-3">
+          <label for="dni">DNI</label>
+          <input type="text" class="form-control" id="dni" required formControlName="dni">
+        </div>
+        @if (dni?.invalid && (dni?.dirty || dni?.touched)) {
+            <div class="alert alert-danger" role="alert">
+                    Debe ingresar un DNI
+            </div>
+        }
+        
+        <div class="form-group mb-3">
+          <label for="categoria">Categoria</label>
+          <select class="form-control" id="categoria" (change)="calcularDescuento()" required formControlName="categoria">
+            <option value="l">Local</option>
+            <option value="e">Extranjero</option>
+          </select>
+          @if (mostrarSmall) {
+            <small>Por favor, elija el tipo de categoria</small>
+          }
+        </div>
+        @if (categoria?.invalid && (categoria?.dirty || categoria?.touched)) {
+            <div class="alert alert-danger" role="alert">
+                    Debe elegir el tipo de categoria
+            </div>
+        }
+
+        <div class="form-group mb-3">
+            <label for="fecha">Fecha de Cobro</label>
+            <input id="date" type="date" class="form-control" id="fecha" required  formControlName="fecha">
+        </div>
+        @if (fecha?.invalid && (fecha?.dirty || fecha?.touched)) {
+            <div class="alert alert-danger" role="alert">
+                    Debe ingresar una fecha
+            </div>
+        }
+
+        <div class="form-group mb-3">
+            <label for="precio">Precio</label>
+            <input type="number" class="form-control" id="precio" min="1" (change)="calcularDescuento()" required  formControlName="precio">
+        </div>
+        @if (precio?.invalid && (precio?.dirty || precio?.touched)) {
+            <div class="alert alert-danger" role="alert">
+                    Debe ingresar el precio
+            </div>
+        }
+
+        @if (mostrarLabel) {
+            <div>
+                <label class="form-label">
+                    <h2>Precio total: {{precioCobrado}}</h2>
+                </label>
+            </div>
+        }
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary" [disabled]="newTicketForm.invalid">Registrar</button>
+            <button type="reset" class="btn btn-warning">Vaciar campos</button>
+            <button type="button" class="btn btn-secondary" (click)="volver()">Cancelar</button>
+        </div>
+        
+    </form>
+</section>

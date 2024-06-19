@@ -1,6 +1,28 @@
 <div class="row">
     <section class="col-md-8 d-none d-md-block pb-5">
         <div class="table-wrapper">
+            <form [formGroup]="filterForm" (submit)="filtrar()">
+                <div class="mb-3 row">
+                    <div class="col">
+                        <label for="origen">Moneda de Origen</label>
+                        <select class="form-control" id="origen" required formControlName="origen">
+                            <option value="ARS" selected>ARS</option>
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="destino">Moneda de Destino</label>
+                        <select class="form-control" id="destino" required formControlName="destino">
+                            <option value="USD" selected>USD</option>
+                            <option value="ARS">ARS</option>
+                            <option value="EUR">EUR</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-secondary m-1">Filtrar</button>
+                <button type="button" class="btn btn-secondary m-1" (click)="getTransacciones()">Sin filtro</button>
+            </form>
             <table class="table table-striped table-hover text-center caption-top">
                 <caption>Lista de Tickets</caption>
                 <thead>

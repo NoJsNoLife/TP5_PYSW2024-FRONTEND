@@ -23,7 +23,6 @@ export class Punto2Component implements OnInit, OnDestroy{
 
   constructor(){}
   ngOnInit(): void {
-    this.transacciones$ = this.transaccionService.getTransacciones()
     this.getTransacciones()
   }
   ngOnDestroy(): void {
@@ -36,6 +35,13 @@ export class Punto2Component implements OnInit, OnDestroy{
     tipoDestino: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required)
   })
+  filterForm = new FormGroup({
+    origen: new FormControl('', Validators.required),
+    destino: new FormControl('', Validators.required),
+  })
+
+  get origen() { return this.filterForm.get('origen'); }
+  get destino() { return this.filterForm.get('destino'); }
 
   get tipoOrigen() { return this.newTransaccionForm.get('tipoOrigen'); }
   get montoOrigen() { return this.newTransaccionForm.get('montoOrigen'); }
@@ -63,6 +69,7 @@ export class Punto2Component implements OnInit, OnDestroy{
   }
 
   getTransacciones(){
+    this.transacciones$ = this.transaccionService.getTransacciones()
     this.transaccionSubscription = this.transacciones$.subscribe({
       next: (resultados) => {
         this.transacciones = new Array<Transaccion>()
@@ -74,5 +81,27 @@ export class Punto2Component implements OnInit, OnDestroy{
       },
       error: (err) => console.error(err)
     })
+  }
+
+  filtrar(){
+    if(this.origen?.value && this.destino?.value){
+      this.transacciones$ = this.transaccionService.getTransaccionesByCoin(this.origen?.value, this.destino?.value)
+      this.transacciones$.subscribe({
+        next: (resultados) => {
+          this.transacciones = new Array<Transaccion>()
+          resultados.forEach(el => {
+            this.transaccion = new Transaccion()
+            Object.assign(this.transaccion, el)
+            this.transacciones.push(this.transaccion)
+          })
+          console.log(resultados)
+        },
+        error: (err) => {
+          console.log(err)
+        }
+      })
+    } else {
+      console.log(this.origen?.value, this.destino?.value)
+    }
   }
 }

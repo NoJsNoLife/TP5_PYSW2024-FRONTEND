@@ -16,6 +16,16 @@ export class TransaccionService {
     return this._http.get("http://localhost:3000/api/transaccion")
   }
 
+  getTransaccionesByCoin(monedaOrigen: string, monedaDestino: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-type': 'application/json'
+      }),
+      params: new HttpParams().set('from', monedaOrigen).set('to', monedaDestino)
+    } 
+    return this._http.get("http://localhost:3000/api/transaccion/filter/", httpOptions)
+  }
+
   convertirMonto(origen: string, destino: string, monto: number): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
